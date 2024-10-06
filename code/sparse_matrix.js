@@ -5,9 +5,9 @@ class SparseMatrix {
     this.elements = new Map();
 
     if (typeof rowsOrFilePath === "string") {
-      this.loadFromFile(rowsOrFilePath);
+      this.loadFromFile(rowsOrFilePath); // Load matrix from file
     } else {
-      this.rows = rowsOrFilePath;
+      this.rows = rowsOrFilePath; // Initialize empty matrix
       this.cols = cols;
     }
   }
@@ -54,7 +54,7 @@ class SparseMatrix {
           this.setElement(rowIndex, colIndex, val);
         } else {
           console.warn(
-            `Skipping invalid index (${rowIndex}, ${colIndex}) out of matrix bounds.`
+            `Index (${rowIndex}, ${colIndex}) out of matrix bounds.`
           );
         }
       }
@@ -147,9 +147,9 @@ class SparseMatrix {
     return result;
   }
 
-  writeToFile(filePath, content) {
+  writeToFile(filePath) {
     try {
-      fs.writeFileSync(filePath, content.toString(), "utf8");
+      fs.writeFileSync(filePath, this.toString(), "utf8");
       console.log(`Output matrix has been written to ${filePath}`);
     } catch (error) {
       throw new Error(`Error writing file: ${error.message}`);
@@ -157,9 +157,9 @@ class SparseMatrix {
   }
 }
 
-// Usage Example:
-const matrix1 = new SparseMatrix("../sample_inputs/matrixA.txt");
-const matrix2 = new SparseMatrix("../sample_inputs/matrixB.txt");
+// Example:
+const matrix1 = new SparseMatrix("../sample_inputs/easy_sample_02_1.txt");
+const matrix2 = new SparseMatrix("../sample_inputs/easy_sample_02_2.txt");
 
 const additionResult = matrix1.add(matrix2);
 additionResult.writeToFile("../output/addition_result.txt");
